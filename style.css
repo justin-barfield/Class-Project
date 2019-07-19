@@ -1,0 +1,58 @@
+* {
+    box-sizing: border-box;
+}
+
+div {
+    border: 1px solid black;
+}
+
+.page-head {
+    display: flex;
+    justify-content: center;
+}
+
+#top-chart {
+    
+}
+
+.chart-title {
+    
+}
+
+
+.chart-headers {
+    padding: 5px;
+    float: left;
+    width: 100%
+
+}
+
+.chart-data {
+    padding: 5px;
+
+}
+
+#bottom-chart {
+    
+}
+
+.form-part {
+    padding: 0 5px
+}
+
+.label {
+    margin: 10px 5px
+}
+
+.user-input {
+    width: 100%;
+    
+}
+
+.btn {
+    margin: 5px 5px 10px 5px;
+    background-color: #aaa;
+}
+.btn:hover {
+    border: 2px darkslategrey;
+}

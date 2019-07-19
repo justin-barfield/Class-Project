@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+
+    <title>Document</title>
+    
+</head>
+<body>
+    
+    <div class="container">
+
+        <div class="container">
+            <h1 class="page-head display-4">
+                Employee Data Management
+            </h1>
+            <h2 class="page-head">
+                Cmprehensive directory of Billable hours
+            </h2>
+        </div>
+
+        <div id="top-chart" class="container">
+
+            <div class="col chart-title">
+                Current Employee
+            </div>
+
+            <div id="employee-chart" class="">
+                <div class="col-sm-2 chart-headers">
+                    Employee name
+                </div>
+                <div class="col-sm-2 chart-headers">
+                    Role
+                </div>
+                <div class="col-sm-2 chart-headers">
+                    Start Date
+                </div>
+                <div class="col-sm-2 chart-headers">
+                    Months Worked
+                </div>
+                <div class="col-sm-2 chart-headers">
+                    Monthly Rate ($)
+                </div>
+                <div class="col-sm-2 chart-headers">
+                    Total Billed ($)
+                </div>
+            </div>
+        </div>
+
+        <div id="bottom-chart" class="container">
+
+            <div class="chart-headers">
+                Add Employee 
+            </div>
+            
+            <div class="form-part">
+                <label class="label">Employee Name</label>
+                <input id="employee-name" class="user-input">
+            </div>
+
+            <div class="form-part">
+                <label class="label">Role</label>
+                <input id="role" class="user-input">
+            </div>
+
+            <div class="form-part">
+                <label class="label">Start Date (mm/dd/yy)</label>
+                <input id="start-date" class="user-input">
+            </div>
+
+            <div class="form-part">
+                <label class="label">Monthly Rate</label>
+                <input id="monthly-rate" class="user-input">
+            </div>
+
+            <div class="submit-button">
+            <button type="button" class="btn" id="submit">Submit</button>
+            </div>
+
+        </div>
+        
+    </div>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.3.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use https://firebase.google.com/docs/web/setup#config-web-app -->
+    
+    <!-- -->
+    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+
+<script>
+
+     // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyD4eIpbmqadrEOteayVTflcRID-bPmJfDU",
+        authDomain: "employee-data-mgmt-07162019.firebaseapp.com",
+        databaseURL: "https://employee-data-mgmt-07162019.firebaseio.com",
+        projectId: "employee-data-mgmt-07162019",
+        storageBucket: "",
+        messagingSenderId: "606123244146",
+        appId: "1:606123244146:web:240446e13434e389"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Get a reference to the database service
+    var database = firebase.database();
+    
+    
+    $('#submit').on('click', function() {
+        event.preventDefault();
+        
+        var employeeArr = [];
+
+        var employeeName = $('#employee-name').val();
+        var role = $('#role').val();
+        var startDate = $('#start-date').val();
+        var monthlyRate = $('#monthly-rate').val();
+
+        employeeArr.push(employeeName, role, startDate, monthlyRate);
+
+        $.each(employeeArr, function(index, value) {
+            var newDiv = $('<div>');
+            $('#employee-chart').append(newDiv.text(value).attr({
+                class: 'col-sm-2',
+
+            }))
+        });
+
+        console.log(employeeArr);
+        
+
+        function addRow(employeeArr){
+
+            console.log("in add row");
+            console.log(employeeArr);
+
+            // Save new value to Firebase
+            database.ref('Employees/Employee-'+employeeArr[0]).set({
+
+                "Employee Name": employeeArr[0],
+                "Role":employeeArr[1],
+                "Start Date":employeeArr[2],
+                "Months Worked":employeeArr[3],
+                // "Monthly Rate":employeeArr[4],
+                // "Total Billed":employeeArr[5],
+            });
+
+       }
+       addRow(employeeArr);
+
+        $('#employee-name').val('');
+        $('#role').val('');
+        $('#start-date').val('');
+        $('#monthly-rate').val('');
+        
+        
+    })    
+    
+    
+</script>
+    
+</body>
+</html>
